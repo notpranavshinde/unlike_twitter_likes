@@ -1,1 +1,2 @@
-# unlike_twitter_likes
+Code to run to unlike all your twitter likes. It is using selenium and firefox. You can change the browser by using selenium documentation. Add your credentials in credentials.py file and save it then run unlike_all_my_tweets.py
+You can set this to run automatically everyday on your computer to avoid people tracking your likes. Or you can get a Raspberry Pi to run it after a fixed amount of time, depending upon how frequently you use the app.
