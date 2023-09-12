@@ -28,14 +28,18 @@ for i in range(3):#trying it thrice incase an error occurs
     except: continue
     print('Login Successful')
     break
-WebDriverWait(driver, 10).until(EC.url_to_be('https://twitter.com/home'))#wait till the page is loaded
+WebDriverWait(driver, 30).until(EC.url_to_be('https://twitter.com/home'))#wait till the page is loaded
 driver.get(f'https://twitter.com/{username}/likes')#navigating to likes page
 counter = 0 #counter to count unliked tweets
 while True:
     try: 
-        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//div[@data-testid = "unlike"]'))).click()#clicking the unlike button
+        unlike_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//div[@data-testid = "unlike"]')))
+        unlike_button.click()
+        driver.implicitly_wait(1)
     except TimeoutException: break #if there are no more liked tweets to unlike break the loop
+    except: driver.refresh()
     counter += 1#update counter
+    if counter % 10 == 0: driver.get(f'https://twitter.com/{username}/likes')#navigating to likes page/ refresing again, to solve the issue of twitter sometimes loading only 10 tweets at a time 
 
 print(f'unliked {counter} likes')
 print('Successfully unliked all the likes')
